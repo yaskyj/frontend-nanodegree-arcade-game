@@ -36,11 +36,29 @@ Player.prototype.update = function(dt) {
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+
+Player.prototype.handleInput = function(input) {
+    if (input === "left") {
+        this.x -= 101;
+    };
+
+    if (input === "right") {
+        this.x += 101;
+    };
+
+    if (input === "up") {
+        this.y -= 83;
+    };
+
+    if (input === "down") {
+        this.y += 83;
+    };
+
+}
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var player = new Player();
-console.log(player instanceof Player);
 
 
 
