@@ -31,35 +31,51 @@ var Player = function() {
 }
 
 Player.prototype.update = function(dt) {
+    player.checkOutOfBounds();
 }
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+Player.prototype.checkOutOfBounds = function() {
+    if (this.x < 0) {
+        this.x = 0;
+    };
+
+    if (this.x > 404) {
+        this.x = 404;
+    };
+
+    if (this.y < 54) {
+        this.x = 202;
+        this.y = 303;
+    };
+
+    if (this.y > 386) {
+        this.y = 386;
+    };
+
+}
 Player.prototype.handleInput = function(input) {
     if (input === "left") {
         this.x -= 101;
-        console.log(this.x + " " + this.y);
+        console.log(this.x + ", " + this.y);
     };
 
     if (input === "right") {
         this.x += 101;
-        console.log(this.x + " " + this.y);
+        console.log(this.x + ", " + this.y);
     };
 
     if (input === "up") {
         this.y -= 83;
-        console.log(this.x + " " + this.y);
+        console.log(this.x + ", " + this.y);
     };
 
     if (input === "down") {
         this.y += 83;
-        console.log(this.x + " " + this.y);
-    };
-
-    if (this.x < 0) {
-        this.x = 0;
+        console.log(this.x + ", " + this.y);
     };
 }
 // Now instantiate your objects.
