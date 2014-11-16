@@ -6,6 +6,9 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    //sets the initial position for the enemy
+    this.x = 202;
+    this.y = 137;
 }
 
 // Update the enemy's position, required method for game
@@ -26,12 +29,13 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
     this.sprite = 'images/char-boy.png';
+    //sets the origin position for the player
     this.x = 202;
-    this.y = 303;
+    this.y = 386;
 }
 
 Player.prototype.update = function(dt) {
-    player.checkOutOfBounds();
+    this.checkOutOfBounds();
 }
 
 Player.prototype.render = function() {
@@ -49,7 +53,7 @@ Player.prototype.checkOutOfBounds = function() {
 
     if (this.y < 54) {
         this.x = 202;
-        this.y = 303;
+        this.y = 386;
     };
 
     if (this.y > 386) {
@@ -57,6 +61,8 @@ Player.prototype.checkOutOfBounds = function() {
     };
 
 }
+
+//handles directional input for the player
 Player.prototype.handleInput = function(input) {
     if (input === "left") {
         this.x -= 101;
@@ -78,12 +84,14 @@ Player.prototype.handleInput = function(input) {
         console.log(this.x + ", " + this.y);
     };
 }
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var enemy1 = new Enemy();
+var allEnemies = [enemy1];
+
 var player = new Player();
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
