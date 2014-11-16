@@ -40,20 +40,27 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(input) {
     if (input === "left") {
         this.x -= 101;
+        console.log(this.x + " " + this.y);
     };
 
     if (input === "right") {
         this.x += 101;
+        console.log(this.x + " " + this.y);
     };
 
     if (input === "up") {
         this.y -= 83;
+        console.log(this.x + " " + this.y);
     };
 
     if (input === "down") {
         this.y += 83;
+        console.log(this.x + " " + this.y);
     };
 
+    if (this.x < 0) {
+        this.x = 0;
+    };
 }
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
