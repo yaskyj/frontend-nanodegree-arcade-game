@@ -9,8 +9,9 @@ var Enemy = function() {
     //sets the initial position for the enemy
     this.x = -101;
     this.y = 137;
-    this.velocity = 20;
+    this.velocity = Math.floor((Math.random() * 600 + 200));
 }
+
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -19,11 +20,20 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += (this.velocity * dt);
+    this.checkOutOfBounds();
 }
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
+Enemy.prototype.checkOutOfBounds = function() {
+    if (this.x > 404) {
+        this.x = -101;
+        this.y = 137;
+        this.velocity = Math.floor((Math.random() * 600 + 200));
+    };
 }
 
 // Now write your own player class
