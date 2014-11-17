@@ -50,19 +50,19 @@ var Player = function() {
 
 Player.prototype.update = function(dt) {
     this.checkOutOfBounds();
-    this.collisionDetection();
+    this.collisionDetection(allEnemies);
 }
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-Player.prototype.collisionDetection = function() {
-    allEnemies.forEach(function(enemy) {
-        if (enemy.x == this.x && enemy.y == this.y) {
+Player.prototype.collisionDetection = function(enemies) {
+    for (enemy in enemies) {
+        if (enemies[enemy].y == this.y && (Math.abs(enemies[enemy].x - this.x) <= 60)) {
             this.setToOrigin();
         };
-    });
+    }
 }
 
 Player.prototype.setToOrigin = function() {
