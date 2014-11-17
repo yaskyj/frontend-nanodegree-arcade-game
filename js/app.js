@@ -6,12 +6,17 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
+    this.yValues = [220, 137, 54];
     //sets the initial position for the enemy
-    this.x = -101;
-    this.y = 137;
-    this.velocity = Math.floor((Math.random() * 600 + 200));
+    this.setVariables();
 }
 
+Enemy.prototype.setVariables = function () {
+    this.x = -101;
+    this.y = this.yValues[Math.floor(Math.random() * this.yValues.length)];
+    this.velocity = Math.floor((Math.random() * 300) + 200);
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -30,9 +35,7 @@ Enemy.prototype.render = function() {
 
 Enemy.prototype.checkOutOfBounds = function() {
     if (this.x > 404) {
-        this.x = -101;
-        this.y = 137;
-        this.velocity = Math.floor((Math.random() * 600 + 200));
+        this.setVariables();
     };
 }
 
@@ -52,6 +55,10 @@ Player.prototype.update = function(dt) {
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
+Player.prototype.collisionDetection = function() {
+    
 }
 
 Player.prototype.checkOutOfBounds = function() {
