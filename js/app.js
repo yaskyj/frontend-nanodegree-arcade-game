@@ -45,12 +45,12 @@ Enemy.prototype.checkOutOfBounds = function() {
 var Player = function() {
     this.sprite = 'images/char-boy.png';
     //sets the origin position for the player
-    this.x = 202;
-    this.y = 386;
+    this.setToOrigin();
 }
 
 Player.prototype.update = function(dt) {
     this.checkOutOfBounds();
+    this.collisionDetection();
 }
 
 Player.prototype.render = function() {
@@ -58,7 +58,16 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.collisionDetection = function() {
-    
+    allEnemies.forEach(function(enemy) {
+        if (enemy.x == this.x && enemy.y == this.y) {
+            this.setToOrigin();
+        };
+    });
+}
+
+Player.prototype.setToOrigin = function() {
+    this.x = 202;
+    this.y = 386;
 }
 
 Player.prototype.checkOutOfBounds = function() {
@@ -71,8 +80,7 @@ Player.prototype.checkOutOfBounds = function() {
     };
 
     if (this.y < 54) {
-        this.x = 202;
-        this.y = 386;
+        this.setToOrigin();
     };
 
     if (this.y > 386) {
@@ -107,9 +115,10 @@ Player.prototype.handleInput = function(input) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [];
 var enemy1 = new Enemy();
-allEnemies.push(enemy1);
+var enemy2 = new Enemy();
+var enemy3 = new Enemy();
+var allEnemies = [enemy1, enemy2, enemy3];
 
 var player = new Player();
 
