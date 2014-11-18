@@ -1,3 +1,5 @@
 https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
 http://www.w3schools.com/jsref/jsref_random.asp
 http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
+http://www.w3schools.com/html/html5_canvas.asp
+http://www.gaminglogy.com/tutorial/write-text/

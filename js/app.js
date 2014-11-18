@@ -46,11 +46,13 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     //sets the origin position for the player
     this.setToOrigin();
+    this.score = 0;
 }
 
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
     this.checkOutOfBounds();
     this.collisionDetection(allEnemies);
+    this.increaseScore();
 }
 
 Player.prototype.render = function() {
@@ -109,6 +111,14 @@ Player.prototype.handleInput = function(input) {
     if (input === "down") {
         this.y += 83;
         console.log(this.x + ", " + this.y);
+    };
+}
+
+Player.prototype.increaseScore = function(dt) {
+    if (this.y <= 220 && this.y >= 54) {
+        this.score += 1;
+        ctx.fillText("Score: " + player.score, 5, 40);
+        //ctx.fillText(this.score, 5, 40);
     };
 }
 

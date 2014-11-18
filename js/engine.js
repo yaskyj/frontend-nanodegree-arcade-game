@@ -29,6 +29,8 @@ var Engine = (function(global) {
     canvas.height = 606;
     ctx.beginPath();
     doc.body.appendChild(canvas);
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "black";
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -40,6 +42,9 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
+
+        ctx.clearRect(0, 0, canvas.width, 40)
+        ctx.fillText("Score: " + player.score, 5, 40);
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
