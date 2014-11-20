@@ -1,16 +1,10 @@
 // Enemies our player must avoid
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
 
-    //array holds the three possible y values
+    //array holds the three possible y values for enemies
     this.yValues = [220, 137, 54];
-
-    //sets the initial position for the enemy
-    this.init();
 }
 
 Enemy.prototype.init = function () {
@@ -33,7 +27,7 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-
+    
 Enemy.prototype.checkOutOfBounds = function() {
     if (this.x > 404) {
         this.init();
@@ -132,6 +126,9 @@ Player.prototype.increaseScore = function(dt) {
 var enemy1 = new Enemy();
 var enemy2 = new Enemy();
 var enemy3 = new Enemy();
+enemy1.init();
+enemy2.init();
+enemy3.init();
 var allEnemies = [enemy1, enemy2, enemy3];
 
 var player = new Player();
