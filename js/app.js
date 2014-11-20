@@ -2,17 +2,18 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 
+    //array holds the three possible y values
     this.yValues = [220, 137, 54];
+
     //sets the initial position for the enemy
-    this.setVariables();
+    this.init();
 }
 
-Enemy.prototype.setVariables = function () {
+Enemy.prototype.init = function () {
     this.x = -101;
     this.y = this.yValues[Math.floor(Math.random() * this.yValues.length)];
     this.velocity = Math.floor((Math.random() * 300) + 200);
@@ -35,7 +36,7 @@ Enemy.prototype.render = function() {
 
 Enemy.prototype.checkOutOfBounds = function() {
     if (this.x > 404) {
-        this.setVariables();
+        this.init();
     };
 }
 
@@ -43,8 +44,12 @@ Enemy.prototype.checkOutOfBounds = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-    this.sprite = 'images/char-boy.png';
-    //sets the origin position for the player
+    this.sprites = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png']
+}
+
+//initializes the player with a random character
+Player.prototype.init = function() {
+    this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
     this.setToOrigin();
     this.score = 0;
 }
@@ -62,14 +67,14 @@ Player.prototype.render = function() {
 Player.prototype.collisionDetection = function(enemies) {
     for (enemy in enemies) {
         if (enemies[enemy].y == this.y && (Math.abs(enemies[enemy].x - this.x) <= 60)) {
-            this.setToOrigin();
+            this.init();
         };
     }
 }
 
 Player.prototype.setToOrigin = function() {
     this.x = 202;
-    this.y = 386;
+    this.y = 386;   
 }
 
 Player.prototype.checkOutOfBounds = function() {
@@ -117,7 +122,6 @@ Player.prototype.handleInput = function(input) {
 Player.prototype.increaseScore = function(dt) {
     if (this.y <= 220 && this.y >= 54) {
         this.score += 1;
-        ctx.fillText("Score: " + player.score, 5, 40);
         //ctx.fillText(this.score, 5, 40);
     };
 }
@@ -131,6 +135,7 @@ var enemy3 = new Enemy();
 var allEnemies = [enemy1, enemy2, enemy3];
 
 var player = new Player();
+player.init();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
