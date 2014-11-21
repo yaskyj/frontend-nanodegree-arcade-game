@@ -1,4 +1,4 @@
-// Enemies our player must avoid
+// Enemies the player must avoid
 var Enemy = function() {
     // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
@@ -7,9 +7,13 @@ var Enemy = function() {
     this.yValues = [220, 137, 54];
 }
 
+//initializes enemies
 Enemy.prototype.init = function () {
+    //sets x value
     this.x = -101;
+    //randomly chooses one of the three values from yValues
     this.y = this.yValues[Math.floor(Math.random() * this.yValues.length)];
+    //randomly sets a velocity between 200 & 300
     this.velocity = Math.floor((Math.random() * 300) + 200);
 }
 
@@ -27,14 +31,15 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-    
+
+//checks for enemy leaving the screen and reinitializes
 Enemy.prototype.checkOutOfBounds = function() {
-    if (this.x > 404) {
+    if (this.x > 505) {
         this.init();
     };
 }
 
-// Now write your own player class
+//Now write your own player class
 var Treasure = function() {
     this.sprites = ['images/Gem Blue.png', 'images/Gem Green.png', 'images/Gem Orange.png'];
     this.yValues = [220, 137, 54];
@@ -49,8 +54,6 @@ Treasure.prototype.init = function() {
 
 }
 // Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 var Player = function() {
     this.sprites = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png']
 }
@@ -85,6 +88,8 @@ Player.prototype.setToOrigin = function() {
     this.y = 386;   
 }
 
+//forces the player sprite back into the screen if it's outside and resets to the origin point if
+//it is in the water
 Player.prototype.checkOutOfBounds = function() {
     if (this.x < 0) {
         this.x = 0;
