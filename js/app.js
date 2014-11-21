@@ -35,6 +35,17 @@ Enemy.prototype.checkOutOfBounds = function() {
 }
 
 // Now write your own player class
+var Treasure = function() {
+    this.sprites = ['images/Gem Blue.png', 'images/Gem Green.png', 'images/Gem Orange.png'];
+    this.yValues = [220, 137, 54];
+    this.xValues = [0, 101, 202, 303, 404];
+}
+
+//initializes the player with a random character
+Treasure.prototype.init = function() {
+    this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
+}
+// Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
