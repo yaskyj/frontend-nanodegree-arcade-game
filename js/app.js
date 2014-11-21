@@ -137,13 +137,18 @@ Player.prototype.increaseScore = function(dt) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var enemy1 = new Enemy();
-var enemy2 = new Enemy();
-var enemy3 = new Enemy();
-enemy1.init();
-enemy2.init();
-enemy3.init();
-var allEnemies = [enemy1, enemy2, enemy3];
+function createEnemies(numEnemies) {
+    for (i = 0; i < numEnemies; i++) {
+        var enemy = new Enemy();
+        enemy.init()
+        allEnemies.push(enemy);
+    }
+}
+//var enemy1 = new Enemy();
+//var enemy2 = new Enemy();
+//var enemy3 = new Enemy();
+var allEnemies = [];
+//var allEnemies = [enemy1, enemy2, enemy3];
 
 var player = new Player();
 player.init();
