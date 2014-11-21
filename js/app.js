@@ -44,6 +44,9 @@ var Treasure = function() {
 //initializes the player with a random character
 Treasure.prototype.init = function() {
     this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
+    this.x = this.xValues[Math.floor(Math.random() * this.xValues.length)];
+    this.y = this.yValues[Math.floor(Math.random() * this.yValues.length)];
+
 }
 // Now write your own player class
 // This class requires an update(), render() and
