@@ -132,22 +132,18 @@ Player.prototype.checkOutOfBounds = function() {
 Player.prototype.handleInput = function(input) {
     if (input === 'left') {
         this.x -= 101;
-        console.log(this.x + ', ' + this.y);
     };
 
     if (input === 'right') {
         this.x += 101;
-        console.log(this.x + ', ' + this.y);
     };
 
     if (input === 'up') {
         this.y -= 83;
-        console.log(this.x + ', ' + this.y);
     };
 
     if (input === 'down') {
         this.y += 83;
-        console.log(this.x + ', ' + this.y);
     };
 }
 
