@@ -67,7 +67,7 @@ Player.prototype.init = function() {
 
 Player.prototype.update = function() {
     this.checkOutOfBounds();
-    this.collisionDetection(allEnemies);
+    this.collisionDetection(allEnemies, treasure);
     this.increaseScore();
 }
 
@@ -75,12 +75,17 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-Player.prototype.collisionDetection = function(enemies) {
+Player.prototype.collisionDetection = function(enemies, treasure) {
     for (enemy in enemies) {
         if (enemies[enemy].y == this.y && (Math.abs(enemies[enemy].x - this.x) <= 60)) {
             this.init();
         };
     }
+
+/*    if (treasure.y == this.y && treasure.x == this.x) {
+        this.score += 10000;
+    };
+*/
 }
 
 Player.prototype.setToOrigin = function() {
@@ -135,7 +140,6 @@ Player.prototype.handleInput = function(input) {
 Player.prototype.increaseScore = function(dt) {
     if (this.y <= 220 && this.y >= 54) {
         this.score += 1;
-        //ctx.fillText(this.score, 5, 40);
     };
 }
 
@@ -149,12 +153,11 @@ function createEnemies(numEnemies) {
         allEnemies.push(enemy);
     }
 }
-//var enemy1 = new Enemy();
-//var enemy2 = new Enemy();
-//var enemy3 = new Enemy();
-var allEnemies = [];
-//var allEnemies = [enemy1, enemy2, enemy3];
 
+var allEnemies = [];
+
+var treasure = new Treasure();
+treasure.init();
 var player = new Player();
 player.init();
 
