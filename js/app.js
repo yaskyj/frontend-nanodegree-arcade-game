@@ -39,20 +39,25 @@ Enemy.prototype.checkOutOfBounds = function() {
     };
 }
 
-//Now write your own player class
+//class for the gem treasures
 var Treasure = function() {
     this.sprites = ['images/Gem Blue.png', 'images/Gem Green.png', 'images/Gem Orange.png'];
     this.yValues = [220, 137, 54];
     this.xValues = [0, 101, 202, 303, 404];
 }
 
-//initializes the player with a random character
+//initializes the treasures with a random character and random 
 Treasure.prototype.init = function() {
     this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
     this.x = this.xValues[Math.floor(Math.random() * this.xValues.length)];
     this.y = this.yValues[Math.floor(Math.random() * this.yValues.length)];
 
 }
+
+Treasure.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
 // Now write your own player class
 var Player = function() {
     this.sprites = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png']
@@ -82,10 +87,11 @@ Player.prototype.collisionDetection = function(enemies, treasure) {
         };
     }
 
-/*    if (treasure.y == this.y && treasure.x == this.x) {
+    if (treasure.y == this.y && treasure.x == this.x) {
         this.score += 10000;
+        treasure.init();
     };
-*/
+
 }
 
 Player.prototype.setToOrigin = function() {
