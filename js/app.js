@@ -46,7 +46,7 @@ var Treasure = function() {
     this.xValues = [0, 101, 202, 303, 404];
 }
 
-//initializes the treasures with a random character and random 
+//initializes the treasures with a random sprite and random 
 Treasure.prototype.init = function() {
     this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
     this.x = this.xValues[Math.floor(Math.random() * this.xValues.length)];
@@ -54,39 +54,46 @@ Treasure.prototype.init = function() {
 
 }
 
+//render gem
 Treasure.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-// Now write your own player class
+//player class
 var Player = function() {
+    //array to hold all player sprites
     this.sprites = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png']
 }
 
-//initializes the player with a random character
+//initializes the player with a random character sprite, sets to origin point, and sets score to zero
 Player.prototype.init = function() {
     this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
     this.setToOrigin();
     this.score = 0;
 }
 
+//player update function
 Player.prototype.update = function() {
     this.checkOutOfBounds();
     this.collisionDetection(allEnemies, treasure);
     this.increaseScore();
 }
 
+//player render
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+//checks player collisions with enemies and gems
 Player.prototype.collisionDetection = function(enemies, treasure) {
     for (enemy in enemies) {
+        //if player collides with enemies it is reinitialized
         if (enemies[enemy].y == this.y && (Math.abs(enemies[enemy].x - this.x) <= 60)) {
             this.init();
         };
     }
 
+    //checks collision with the treasure and adds 10000 to score
     if (treasure.y == this.y && treasure.x == this.x) {
         this.score += 10000;
         treasure.init();
@@ -94,6 +101,7 @@ Player.prototype.collisionDetection = function(enemies, treasure) {
 
 }
 
+//sets the player back to the origin point
 Player.prototype.setToOrigin = function() {
     this.x = 202;
     this.y = 386;   
@@ -122,36 +130,35 @@ Player.prototype.checkOutOfBounds = function() {
 
 //handles directional input for the player
 Player.prototype.handleInput = function(input) {
-    if (input === "left") {
+    if (input === 'left') {
         this.x -= 101;
-        console.log(this.x + ", " + this.y);
+        console.log(this.x + ', ' + this.y);
     };
 
-    if (input === "right") {
+    if (input === 'right') {
         this.x += 101;
-        console.log(this.x + ", " + this.y);
+        console.log(this.x + ', ' + this.y);
     };
 
-    if (input === "up") {
+    if (input === 'up') {
         this.y -= 83;
-        console.log(this.x + ", " + this.y);
+        console.log(this.x + ', ' + this.y);
     };
 
-    if (input === "down") {
+    if (input === 'down') {
         this.y += 83;
-        console.log(this.x + ", " + this.y);
+        console.log(this.x + ', ' + this.y);
     };
 }
 
+//if the player is on the stones then the score is increased
 Player.prototype.increaseScore = function(dt) {
     if (this.y <= 220 && this.y >= 54) {
         this.score += 1;
     };
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+//takes a number and creates a corresponding number of enemies
 function createEnemies(numEnemies) {
     for (i = 0; i < numEnemies; i++) {
         var enemy = new Enemy();
@@ -160,8 +167,8 @@ function createEnemies(numEnemies) {
     }
 }
 
+//initialize game variables
 var allEnemies = [];
-
 var treasure = new Treasure();
 treasure.init();
 var player = new Player();

@@ -42,11 +42,12 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
-
-        ctx.clearRect(0, 0, canvas.width, 40)
-        ctx.fillText("Score: " + player.score, 5, 40);
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
+
+        //writes the score to the top of the screen
+        ctx.clearRect(0, 0, canvas.width, 40)
+        ctx.fillText("Score: " + player.score, 5, 40);
 
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
