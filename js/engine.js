@@ -45,7 +45,9 @@ var Engine = (function(global) {
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
-        //writes the score to the top of the screen
+        /* Created a rectangle at the upper left hand of the screen.
+         * On each run of the main function it updates the score.
+         */
         ctx.clearRect(0, 0, canvas.width, 40)
         ctx.fillText("Score: " + player.score, 5, 40);
 

@@ -1,99 +1,162 @@
-// Enemies the player must avoid
-var Enemy = function() {
-    // The image/sprite for our enemies
-    this.sprite = 'images/enemy-bug.png';
+/* App.js
+ * This file provides the classes and functions
+ * for use in the game engine. 
+ */
 
-    //array holds the three possible y values for enemies
+/* This object hold the initial values and attributes
+ * for Enemies the player must avoid.
+ */
+var Enemy = function() {
+    /* The sprite for the enemy is initialized.
+     */
+    this.sprite = 'images/enemy-bug.png';
+    /* An array is then initialized to hold the three possible
+     * values for the enemies.
+     */
     this.yValues = [220, 137, 54];
 };
 
-//initializes enemies
+/* Enemy prototype function that sets the initial
+ * values for enemies objects.
+ */
 Enemy.prototype.init = function () {
-    //sets x value
+    /* Sets the enemies x value upon
+     * initialization.
+     */
     this.x = -101;
-    //randomly chooses one of the three values from yValues
+    /* Randomly chooses one of the three values
+     * from the yValues array created in the Enemy object.
+     */
     this.y = this.yValues[Math.floor(Math.random() * this.yValues.length)];
-    //randomly sets a velocity between 200 & 300
+    /* Randomly sets a velocity between 
+     * 200 & 300.
+     */
     this.velocity = Math.floor((Math.random() * 300) + 200);
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/* Update the enemy's position, required method for game
+ * Parameter: dt, a time delta between ticks.
+ */
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+    /* You should multiply any movement by the dt parameter
+     * which will ensure the game runs at the same speed for
+     * all computers.
+    */
     this.x += (this.velocity * dt);
+    
+    /* Call the function which checks
+     * the position of the enemy.
+    */
     this.checkOutOfBounds();
 };
 
-// Draw the enemy on the screen, required method for game
+/* Draws the enemy on the screen.
+ * This required for the game engine.
+ */
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//checks for enemy leaving the screen and reinitializes
+/* Checks the enemy to see if its x value
+ * is a bit farther beyond the bounds of the canvas.
+ * If it has gone beyond the x value then the init
+ * function is called on the enemy.
+ */
 Enemy.prototype.checkOutOfBounds = function() {
     if (this.x > 505) {
         this.init();
     }
 };
 
-//class for the gem treasures
+/* This object hold the initial values and attributes
+ * for Enemies the player must avoid.
+ */
 var Treasure = function() {
     this.sprites = ['images/Gem Blue.png', 'images/Gem Green.png', 'images/Gem Orange.png'];
     this.yValues = [220, 137, 54];
     this.xValues = [0, 101, 202, 303, 404];
 };
 
-//initializes the treasures with a random sprite and random 
+/* Treasure prototype function that sets the initial
+ * values for treasure's attributes.
+ */
 Treasure.prototype.init = function() {
+    /* Treasure prototype function that sets the initial
+     * values for treasures objects.
+     * A random sprite from the sprites values is chosen.
+     * Random x and y values are selected from the yValues
+     * and xValues arrays set in the initial object declaration.
+     */
     this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
     this.x = this.xValues[Math.floor(Math.random() * this.xValues.length)];
     this.y = this.yValues[Math.floor(Math.random() * this.yValues.length)];
 
 };
 
-//render gem
+/* Draws the treasure on the screen.
+ * This required for the game engine.
+ */
 Treasure.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//player class
+/* This object hold the initial values and attributes
+ * for Player object.
+ */
 var Player = function() {
-    //array to hold all player sprites
+    /* The array for all of the player
+     * sprites.
+     */
     this.sprites = ['images/char-boy.png', 'images/char-cat-girl.png', 'images/char-horn-girl.png', 'images/char-pink-girl.png', 'images/char-princess-girl.png']
 };
 
-//initializes the player with a random character sprite, sets to origin point, and sets score to zero
-Player.prototype.init = function() {
+/* Player prototype function that sets the initial
+ * values for player's attributes.
+ */
+ Player.prototype.init = function() {
+    /* Player prototype function that sets the initial
+     * values for Player objects.
+     * A random sprite from the sprites values is chosen.
+     * The Player is set to its origin point.
+     * The score is reset to 0.
+     */
     this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
     this.setToOrigin();
     this.score = 0;
 };
 
-//player update function
+/* Runs the out of bounds, collision dectection
+ * and increase score functions.
+ */
 Player.prototype.update = function() {
     this.checkOutOfBounds();
     this.collisionDetection(allEnemies, treasure);
     this.increaseScore();
 };
 
-//player render
+/* Draws the player on the screen.
+ * This required for the game engine.
+ */
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//checks player collisions with enemies and gems
+/* Checks is the Player object collides with 
+ * enemies and gems.
+ */
 Player.prototype.collisionDetection = function(enemies, treasure) {
     for (enemy in enemies) {
-        //if player collides with enemies it is reinitialized
+        /* If a collision with the enemy is detected then the Player's init function
+         * is run.
+        */
         if (enemies[enemy].y == this.y && (Math.abs(enemies[enemy].x - this.x) <= 60)) {
             this.init();
         }
     }
 
-    //checks collision with the treasure and adds 10000 to score
+    /* If a collision with the treasure is detected then the Player's 10000
+     * is added to the score.
+    */
     if (treasure.y == this.y && treasure.x == this.x) {
         this.score += 10000;
         treasure.init();
@@ -101,14 +164,18 @@ Player.prototype.collisionDetection = function(enemies, treasure) {
 
 };
 
-//sets the player back to the origin point
+/* Sets the Player back to the origin 
+ * point 
+ */
 Player.prototype.setToOrigin = function() {
     this.x = 202;
     this.y = 386;   
 };
 
-//forces the player sprite back into the screen if it's outside and resets to the origin point if
-//it is in the water
+/* Forces the player sprite back into the screen if it's outside
+ * the canvas area and resets to the Player to the origin point if
+ * it is in the water
+ */
 Player.prototype.checkOutOfBounds = function() {
     if (this.x < 0) {
         this.x = 0;
@@ -128,7 +195,9 @@ Player.prototype.checkOutOfBounds = function() {
 
 };
 
-//handles directional input for the player
+/* Handles the directional input from the cursors
+ * and moves the the Player in the proper directions.
+ */
 Player.prototype.handleInput = function(input) {
     if (input === 'left') {
         this.x -= 101;
@@ -147,14 +216,18 @@ Player.prototype.handleInput = function(input) {
     }
 };
 
-//if the player is on the stones then the score is increased
+/* If the player is on the stones then the score 
+ * is increased.
+ */
 Player.prototype.increaseScore = function(dt) {
     if (this.y <= 220 && this.y >= 54) {
         this.score += 1;
     }
 };
 
-//takes a number and creates a corresponding number of enemies
+/* Takes a number and creates a corresponding
+ * number of enemies.
+ */
 function createEnemies(numEnemies) {
     for (i = 0; i < numEnemies; i++) {
         var enemy = new Enemy();
@@ -163,7 +236,9 @@ function createEnemies(numEnemies) {
     }
 }
 
-//initialize game variables
+/* Initializes the Enemies array which holds the enemies objects, Treasure object,
+ * and the Player object
+ */
 var allEnemies = [];
 var treasure = new Treasure();
 treasure.init();
